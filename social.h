@@ -32,6 +32,7 @@ Publication *creerPublication(char titre[], char contenu[]);
 void ajouterAmi(User *user, User *ami);
 void supprimerAmi(User *user, User *ami);
 void ajouterPublication(User *user, Publication *publication);
+void supprimerToutesPublications(User *user);
 
 char *userSelonId(User *users[], int taille, int id);
 

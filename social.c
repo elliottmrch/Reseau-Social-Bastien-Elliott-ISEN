@@ -98,6 +98,20 @@ void ajouterPublication(User *user, Publication *publication)
     }
 }
 
+void supprimerToutesPublications(User *user)
+{
+    Publication *actuel = user->publications->premier;
+    Publication *suivant;
+    while (actuel != NULL)
+    {
+        suivant = actuel->suivant;
+        free(actuel);
+        actuel = suivant;
+    }
+    free(user->publications);
+    user->publications = NULL;
+}
+
 //--------------------------------------------------------------
 
 char *userSelonId(User *users[], int taille, int id)
