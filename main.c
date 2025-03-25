@@ -56,7 +56,9 @@ int main()
 
             int id = idSelonUser(listeUsers, nbrUsers, pseudo1);
             int idAmi = idSelonUser(listeUsers, nbrUsers, pseudo2);
-            ajouterAmi(listeUsers[id], idAmi);
+            User *user = userSelonId2(listeUsers, nbrUsers, id);
+            User *ami = userSelonId2(listeUsers, nbrUsers, idAmi);
+            ajouterAmi(user, ami);
             break;
         }
 

@@ -28,13 +28,22 @@ Publication *creerPublication(char titre[], char contenu[])
 
 //--------------------------------------------------------------
 
-void ajouterAmi(User *user, int idAmi)
+void ajouterAmi(User *user, User *ami)
 {
     for (int i = 0; i < 50; i++)
     {
         if (user->idAmis[i] == -1)
         {
-            user->idAmis[i] = idAmi;
+            user->idAmis[i] = ami->id;
+            break;
+        }
+    }
+
+    for (int i = 0; i < 50; i++)
+    {
+        if (ami->idAmis[i] == -1)
+        {
+            ami->idAmis[i] = user->id;
             break;
         }
     }
@@ -82,6 +91,18 @@ char *userSelonId(User *users[], int taille, int id)
     return NULL;
 }
 
+User *userSelonId2(User *users[], int taille, int id)
+{
+    for (int i = 0; i < taille; i++)
+    {
+        if (users[i]->id == id)
+        {
+            return users[i];
+        }
+    }
+    return NULL;
+}
+
 int idSelonUser(User *users[], int taille, char pseudo[])
 {
     for (int i = 0; i < taille; i++)
@@ -110,7 +131,7 @@ void afficherAmis(User *user, User *usersLst[], int taille)
             }
         }
     }
-    printf("\n\n");
+    printf("\n");
 }
 
 void afficherUtilisateurs(User *users[], int taille, int choix)
@@ -134,6 +155,8 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
         fgets(pseudo, 50, stdin);
         pseudo[strlen(pseudo) - 1] = '\0';
         int id = idSelonUser(users, taille, pseudo);
+        printf("ID: %d  ", users[id]->id);
+        printf("Pseudo: %s  ", users[id]->pseudo);
         afficherAmis(users[id], users, taille);
         break;
     }
