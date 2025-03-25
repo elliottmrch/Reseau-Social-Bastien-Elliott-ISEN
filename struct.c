@@ -11,7 +11,8 @@ typedef struct
     int nbr_posts;
 } Utilisateur;
 
-void afficher_utilisateur(Utilisateur * u, int nbr_ui);
+void afficher_utilisateur(Utilisateur *u, int nbr_ui);
+void ajouterAmi(Utilisateur *u, int nbr_ui, int id, int id_ami);
 void afficher_amis(Utilisateur * u, int nbr_ui, int id);
 void afficherPosts(Utilisateur * u, int nbr_ui, int id);
 void ajouterPost(Utilisateur * u, int nbr_ui, int id, char * post);
