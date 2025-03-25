@@ -27,13 +27,16 @@ typedef struct
 
 User *creerUser(int id, char pseudo[]);
 Publication *creerPublication(char titre[], char contenu[]);
-void ajouterPublication(User *user, Publication *publication);
-void ajouterAmi(User *user, int idAmi); 
-void supprimerAmi(User *user, int idAmi);
-void afficherUserSelonId(User *users[], int taille, int id);
-void afficherAmis(User *users[], int taille);
-void afficherUtilisateurs(User *users[], int taille, int choix);
-void afficherPublications(User *users[], int taille);
 
+void ajouterAmi(User *user, int idAmi);
+void supprimerAmi(User *user, int idAmi);
+void ajouterPublication(User *user, Publication *publication);
+
+char *userSelonId(User *users[], int taille, int id);
+int idSelonUser(User *users[], int taille, char pseudo[]);
+
+void afficherAmis(User *user, User *usersLst, int taille);
+void afficherUtilisateurs(User *users[], int taille, int choix);
+void afficherPublications(User *users[], int taille, int choix);
 
 #endif

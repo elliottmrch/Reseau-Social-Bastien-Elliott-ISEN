@@ -26,21 +26,7 @@ Publication *creerPublication(char titre[], char contenu[])
     return nv;
 }
 
-void ajouterPublication(User *user, Publication *publication)
-{
-    if (user->publications == NULL)
-    {
-        user->publications = malloc(sizeof(ListePublications));
-        user->publications->premier = publication;
-    }
-    else
-    {
-        Publication *actuel = user->publications->premier;
-        while (actuel->suivant != NULL)
-            actuel = actuel->suivant;
-        actuel->suivant = publication;
-    }
-}
+//--------------------------------------------------------------
 
 void ajouterAmi(User *user, int idAmi)
 {
@@ -66,29 +52,64 @@ void supprimerAmi(User *user, int idAmi)
     }
 }
 
-void afficherUserSelonId(User *users[], int taille, int id)
+void ajouterPublication(User *user, Publication *publication)
+{
+    if (user->publications == NULL)
+    {
+        user->publications = malloc(sizeof(ListePublications));
+        user->publications->premier = publication;
+    }
+    else
+    {
+        Publication *actuel = user->publications->premier;
+        while (actuel->suivant != NULL)
+            actuel = actuel->suivant;
+        actuel->suivant = publication;
+    }
+}
+
+//--------------------------------------------------------------
+
+char *userSelonId(User *users[], int taille, int id)
 {
     for (int i = 0; i < taille; i++)
     {
         if (users[i]->id == id)
         {
-            printf("Pseudo: %s  ", users[i]->pseudo);
+            return users[i]->pseudo;
+        }
+    }
+    return NULL;
+}
+
+int idSelonUser(User *users[], int taille, char pseudo[])
+{
+    for (int i = 0; i < taille; i++)
+    {
+        if (strcmp(users[i]->pseudo, pseudo) == 0)
+        {
+            return users[i]->id;
         }
     }
 }
 
-void afficherAmis(User *users[], int taille)
+//--------------------------------------------------------------
+
+void afficherAmis(User *user, User *usersLst, int taille)
 {
-    for (int i = 0; i < taille; i++)
+    printf("Amis: ");
+    for (int i = 0; i < 50; i++)
     {
-        printf("Amis: ");
-        for (int j = 0; j < 50; j++)
+        if (user->idAmis[i] != -1)
         {
-            if (users[i]->idAmis[j] != -1)
-                afficherUserSelonId(users, taille, users[i]->idAmis[j]);
+            char *pseudo = userSelonId(usersLst, taille, user->idAmis[i]);
+            if (pseudo != NULL)
+            {
+                printf("%s  ", pseudo);
+            }
         }
-        printf("\n\n");
     }
+    printf("\n\n");
 }
 
 void afficherUtilisateurs(User *users[], int taille, int choix)
@@ -97,36 +118,72 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
     {
     case 1:
     {
-        
-        afficherAmis(users, taille);
+        for (int i = 0; i < taille; i++)
+        {
+            printf("ID: %d  ", users[i]->id);
+            printf("Pseudo: %s  ", users[i]->pseudo);
+            afficherAmis(users[i], users, taille);
+            printf("\n\n");
+        }
         break;
     }
 
     case 2:
     {
-        int id;
-        printf("ID: ");
-        scanf("%d", &id);
-        getchar();
-
-        for (int i = 0; i < taille; i++)
-        {
-            if (users[i]->id == id)
-            {
-                printf("ID: %d  ", users[i]->id);
-                printf("Pseudo: %s  ", users[i]->pseudo);
-                printf("Amis: ");
-                for (int j = 0; j < 50; j++)
-                {
-                    if (users[i]->idAmis[j] != -1)
-                        printf("%d ", users[i]->idAmis[j]);
-                }
-                printf("\n\n");
-            }
-        }
+        char pseudo[50];
+        printf("Pseudo: ");
+        fgets(pseudo, 50, stdin);
+        pseudo[strlen(pseudo) - 1] = '\0';
+        int id = idSelonUser(users, taille, pseudo);
+        afficherAmis(users[id], users, taille);
+        break;
     }
 
     default:
+        printf("Choix indisponible\n\n");
+        break;
+    }
+}
+
+void afficherPublications(User *users[], int taille, int choix)
+{
+    switch (choix)
+    {
+    case 1:
+    {
+        for (int i = 0; i < taille; i++)
+        {
+            printf("Pseudo: %s\n", users[i]->pseudo);
+            Publication *actuel = users[i]->publications->premier;
+            while (actuel != NULL)
+            {
+                printf("Titre: %s\n", actuel->titre);
+                printf("Contenu: %s\n\n", actuel->contenu);
+                actuel = actuel->suivant;
+            }
+        }
+        break;
+    }
+
+    case 2:
+    {
+        char pseudo[50];
+        printf("Pseudo: ");
+        fgets(pseudo, 50, stdin);
+        pseudo[strlen(pseudo) - 1] = '\0';
+        int id = idSelonUser(users, taille, pseudo);
+        Publication *actuel = users[id]->publications->premier;
+        while (actuel != NULL)
+        {
+            printf("Titre: %s\n", actuel->titre);
+            printf("Contenu: %s\n\n", actuel->contenu);
+            actuel = actuel->suivant;
+        }
+        break;
+    }
+
+    default:
+        printf("Choix indisponible\n\n");
         break;
     }
 }

@@ -4,7 +4,7 @@ int main()
 {
     int choix = 0;
     int nbrUsers = 0;
-    User *listeUsers[100];
+    User *listeUsers[50];
 
     printf("--- ISEN MEDIA ---\n\n");
 
@@ -42,11 +42,99 @@ int main()
             break;
         }
 
+        case 2:
+        {
+            char pseudo1[50];
+            printf("Votre pseudo: ");
+            fgets(pseudo1, 50, stdin);
+            pseudo1[strlen(pseudo1) - 1] = '\0';
 
+            char pseudo2[50];
+            printf("Pseudo de votre ami: ");
+            fgets(pseudo2, 50, stdin);
+            pseudo2[strlen(pseudo2) - 1] = '\0';
 
+            int id = idSelonUser(listeUsers, nbrUsers, pseudo1);
+            int idAmi = idSelonUser(listeUsers, nbrUsers, pseudo2);
+            ajouterAmi(listeUsers[id], idAmi);
+            break;
+        }
 
-    } while (choix != 7);
+        case 3:
+        {
+            char pseudo1[50];
+            printf("Votre pseudo: ");
+            fgets(pseudo1, 50, stdin);
+            pseudo1[strlen(pseudo1) - 1] = '\0';
+
+            char pseudo2[50];
+            printf("Pseudo de votre ami: ");
+            fgets(pseudo2, 50, stdin);
+            pseudo2[strlen(pseudo2) - 1] = '\0';
+
+            int id = idSelonUser(listeUsers, nbrUsers, pseudo1);
+            int idAmi = idSelonUser(listeUsers, nbrUsers, pseudo2);
+            supprimerAmi(listeUsers[id], idAmi);
+            break;
+        }
+
+        case 4:
+        {
+            char pseudo[50];
+            printf("Votre pseudo: ");
+            fgets(pseudo, 50, stdin);
+            pseudo[strlen(pseudo) - 1] = '\0';
+
+            char titre[50];
+            printf("Titre: ");
+            fgets(titre, 50, stdin);
+            titre[strlen(titre) - 1] = '\0';
+
+            char contenu[500];
+            printf("Contenu: ");
+            fgets(contenu, 500, stdin);
+            contenu[strlen(contenu) - 1] = '\0';
+
+            int id = idSelonUser(listeUsers, nbrUsers, pseudo);
+            Publication *nv = creerPublication(titre, contenu);
+            ajouterPublication(listeUsers[id], nv);
+            break;
+        }
+
+        case 5:
+        {
+            int choixV1 = 0;
+            printf("Afficher 1. All  2. Pseudo : ");
+            scanf("%d", &choix);
+            getchar();
+            afficherUtilisateurs(listeUsers, nbrUsers, choixV1);
+            break;
+        }
+
+        case 6:
+        {
+            int choixV2 = 0;
+            printf("Afficher 1. All  2. Pseudo : ");
+            scanf("%d", &choix);
+            getchar();
+            afficherPublications(listeUsers, nbrUsers, choixV2);
+            break;
+        }
+
+        case 7:
+        {
+            printf("Fermeture de ISEN MEDIA\n");
+            break;
+        }
+
+        default:
+        {
+            printf("Choix indisponible\n\n");
+            break;
+        }
+    }
+
+} while (choix != 7);
     
-
     return 0;
 }
