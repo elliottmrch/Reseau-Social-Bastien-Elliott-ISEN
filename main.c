@@ -105,7 +105,7 @@ int main()
         {
             int choixV1 = 0;
             printf("Afficher 1. All  2. Pseudo : ");
-            scanf("%d", &choix);
+            scanf("%d", &choixV1);
             getchar();
             afficherUtilisateurs(listeUsers, nbrUsers, choixV1);
             break;
@@ -115,7 +115,7 @@ int main()
         {
             int choixV2 = 0;
             printf("Afficher 1. All  2. Pseudo : ");
-            scanf("%d", &choix);
+            scanf("%d", &choixV2);
             getchar();
             afficherPublications(listeUsers, nbrUsers, choixV2);
             break;

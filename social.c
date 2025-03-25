@@ -128,6 +128,7 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
         break;
 
     case 2:
+    {
         char pseudo[50];
         printf("Pseudo: ");
         fgets(pseudo, 50, stdin);
@@ -135,6 +136,7 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
         int id = idSelonUser(users, taille, pseudo);
         afficherAmis(users[id], users, taille);
         break;
+    }
 
     default:
         printf("Choix indisponible\n\n");
@@ -161,6 +163,7 @@ void afficherPublications(User *users[], int taille, int choix)
         break;
 
     case 2:
+    {
         char pseudo[50];
         printf("Pseudo: ");
         fgets(pseudo, 50, stdin);
@@ -174,6 +177,7 @@ void afficherPublications(User *users[], int taille, int choix)
             actuel = actuel->suivant;
         }
         break;
+    }
 
     default:
         printf("Choix indisponible\n\n");
