@@ -35,7 +35,7 @@ void ajouterPublication(User *user, Publication *publication);
 char *userSelonId(User *users[], int taille, int id);
 int idSelonUser(User *users[], int taille, char pseudo[]);
 
-void afficherAmis(User *user, User *usersLst, int taille);
+void afficherAmis(User *user, User *usersLst[], int taille);
 void afficherUtilisateurs(User *users[], int taille, int choix);
 void afficherPublications(User *users[], int taille, int choix);
 

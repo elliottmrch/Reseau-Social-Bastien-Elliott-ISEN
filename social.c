@@ -4,7 +4,7 @@ User *creerUser(int id, char pseudo[])
 {
     User *nv = malloc(sizeof(User));
     if (nv == NULL)
-        return;
+        exit(1);
     nv->id = id;
     strcpy(nv->pseudo, pseudo);
     for (int i = 0; i < 50; i++)
@@ -18,7 +18,7 @@ Publication *creerPublication(char titre[], char contenu[])
 {
     Publication *nv = malloc(sizeof(Publication));
     if (nv == NULL)
-        return;
+        exit(1);
     strcpy(nv->titre, titre);
     strcpy(nv->contenu, contenu);
     nv->suivant = NULL;
@@ -91,11 +91,12 @@ int idSelonUser(User *users[], int taille, char pseudo[])
             return users[i]->id;
         }
     }
+    return -1;
 }
 
 //--------------------------------------------------------------
 
-void afficherAmis(User *user, User *usersLst, int taille)
+void afficherAmis(User *user, User *usersLst[], int taille)
 {
     printf("Amis: ");
     for (int i = 0; i < 50; i++)
@@ -117,7 +118,6 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
     switch (choix)
     {
     case 1:
-    {
         for (int i = 0; i < taille; i++)
         {
             printf("ID: %d  ", users[i]->id);
@@ -126,10 +126,8 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
             printf("\n\n");
         }
         break;
-    }
 
     case 2:
-    {
         char pseudo[50];
         printf("Pseudo: ");
         fgets(pseudo, 50, stdin);
@@ -137,7 +135,6 @@ void afficherUtilisateurs(User *users[], int taille, int choix)
         int id = idSelonUser(users, taille, pseudo);
         afficherAmis(users[id], users, taille);
         break;
-    }
 
     default:
         printf("Choix indisponible\n\n");
@@ -150,7 +147,6 @@ void afficherPublications(User *users[], int taille, int choix)
     switch (choix)
     {
     case 1:
-    {
         for (int i = 0; i < taille; i++)
         {
             printf("Pseudo: %s\n", users[i]->pseudo);
@@ -163,10 +159,8 @@ void afficherPublications(User *users[], int taille, int choix)
             }
         }
         break;
-    }
 
     case 2:
-    {
         char pseudo[50];
         printf("Pseudo: ");
         fgets(pseudo, 50, stdin);
@@ -180,7 +174,6 @@ void afficherPublications(User *users[], int taille, int choix)
             actuel = actuel->suivant;
         }
         break;
-    }
 
     default:
         printf("Choix indisponible\n\n");
