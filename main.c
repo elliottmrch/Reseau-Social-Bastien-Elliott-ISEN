@@ -4,7 +4,7 @@ int main()
 {
     int choix = 0;
     int nbrUsers = 0;
-    User *listeUsers[50];
+    User *listeUsers[50] = {NULL};
 
     do
     {

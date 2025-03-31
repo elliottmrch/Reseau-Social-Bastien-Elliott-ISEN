@@ -40,6 +40,12 @@ Publication *creerPublication(char titre[], char contenu[])
 
 void ajouterAmi(User *user, User *ami)
 {
+
+    if (user == NULL || ami == NULL)
+    {
+        printf("Utilisateur inexistant\n");
+        return;
+    }
     for (int i = 0; i < 50; i++)
     {
         if (user->idAmis[i] == -1)
@@ -61,6 +67,11 @@ void ajouterAmi(User *user, User *ami)
 
 void supprimerAmi(User *user, User *ami)
 {
+    if (user == NULL || ami == NULL)
+    {
+        printf("Utilisateur inexistant\n");
+        return;
+    }
     for (int i = 0; i < 50; i++)
     {
         if (user->idAmis[i] == ami->id)
@@ -82,6 +93,11 @@ void supprimerAmi(User *user, User *ami)
 
 void ajouterPublication(User *user, Publication *publication)
 {
+    if (user == NULL)
+    {
+        printf("Utilisateur inexistant\n");
+        return;
+    }
     if (user->publications == NULL)
     {
         user->publications = initialise();
@@ -100,6 +116,11 @@ void ajouterPublication(User *user, Publication *publication)
 
 void supprimerToutesPublications(User *user)
 {
+    if (user == NULL)
+    {
+        printf("Utilisateur inexistant\n");
+        return;
+    }
     Publication *actuel = user->publications->premier;
     Publication *suivant;
     while (actuel != NULL)
@@ -118,6 +139,10 @@ char *userSelonId(User *users[], int taille, int id)
 {
     for (int i = 0; i < taille; i++)
     {
+        if (users[i] == NULL)
+        {
+            continue;
+        }
         if (users[i]->id == id)
         {
             return users[i]->pseudo;
@@ -132,6 +157,10 @@ void afficherUtilisateurs(User *users[], int taille)
 {
     for (int i = 0; i < taille; i++)
     {
+        if (users[i] == NULL)
+        {
+            continue;
+        }
         printf("ID: %d  ", users[i]->id);
         printf("Pseudo: %s  \n", users[i]->pseudo);
     }
@@ -139,9 +168,18 @@ void afficherUtilisateurs(User *users[], int taille)
 
 void afficherListeAmis(User *user, User *usersLst[], int taille)
 {
+    if (user == NULL)
+    {
+        printf("Utilisateur inexistant\n");
+        return;
+    }
     printf("Amis: ");
     for (int i = 0; i < 50; i++)
     {
+        if (usersLst[i] == NULL)
+        {
+            continue;
+        }
         if (user->idAmis[i] != -1)
         {
             char *pseudo = userSelonId(usersLst, taille, user->idAmis[i]);
@@ -156,6 +194,11 @@ void afficherListeAmis(User *user, User *usersLst[], int taille)
 
 void afficherPublications(User *user)
 {
+    if (user == NULL)
+    {
+        printf("Utilisateur inexistant\n");
+        return;
+    }
     if (user->publications == NULL)
     {
         printf("Aucune publication\n");
